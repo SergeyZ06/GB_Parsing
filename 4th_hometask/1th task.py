@@ -118,13 +118,15 @@ def func_parsing_yandex(url):
 
         list_sources = []
         for link in list_links:
+            # Скрапинг каждого источника новостей осуществляется с задержкой
+            # и с новым User Agent в целях предотвращения блокировки со стороны Yandex.ru
             random_sleep = random.randint(0, 90)
             time.sleep(90 + random_sleep)
             header_item = Headers(headers=True).generate()
             root_item = html.fromstring(requests.get(url=link, headers=header_item).text)
             list_sources.append(root_item.xpath(r'//div[@class="news-story__head"]/a[@class="news-story__subtitle"]'
                                                 r'/@href'))
-            print(list_sources[len(list_sources) - 1])
+            # print(list_sources[len(list_sources) - 1])
 
         for item_list in range(len(list_titles)):
             # Если yandex.ru перестал выдавать response,
