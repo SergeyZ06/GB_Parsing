@@ -15,12 +15,7 @@ from GB_parsing.spiders.spider_hhru import SpiderHhruSpider
 from GB_parsing.spiders.spider_superjob import SpiderSuperjobSpider
 
 
-# vacancy = input(f'Enter vacancy for parsing:\t')
-# start_url = f'https://ruza.hh.ru/search/vacancy?text={vacancy}'
-# Сантехник
-
 if __name__ == '__main__':
-    # print(start_url)
 
     # Запуск Scrapy
     crawler_settings = Settings()
@@ -29,3 +24,7 @@ if __name__ == '__main__':
     process.crawl(crawler_or_spidercls=SpiderHhruSpider)
     process.crawl(crawler_or_spidercls=SpiderSuperjobSpider)
     process.start()
+
+# Вакансии для отладки:
+# Сантехник
+# Слесарь

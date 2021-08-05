@@ -25,13 +25,36 @@ class GbParsingPipeline:
             if mongo_db_name not in mongo_client.list_database_names():
                 mongo_db.create_collection(mongo_collection_name)
 
-            mongo_db[mongo_collection_name].insert_one({
-                'title':        item['title'],
-                'salary_from':  item['salary_from'],
-                'salary_to':    item['salary_to'],
-                'link':         item['link'],
-                'source':       item['source']
-            })
+            # В зависимости от указанных минимальной и максимальной зарплат
+            # создаём новую запись в БД
+            if item['salary_from'] == '' and item['salary_to'] == '':
+                mongo_db[mongo_collection_name].insert_one({
+                    'title':        item['title'],
+                    'link':         item['link'],
+                    'source':       item['source']
+                })
+            elif item['salary_from'] != '' and item['salary_to'] == '':
+                mongo_db[mongo_collection_name].insert_one({
+                    'title':        item['title'],
+                    'salary_from':  int(item['salary_from']),
+                    'link':         item['link'],
+                    'source':       item['source']
+                })
+            elif item['salary_from'] == '' and item['salary_to'] != '':
+                mongo_db[mongo_collection_name].insert_one({
+                    'title':        item['title'],
+                    'salary_to':    int(item['salary_to']),
+                    'link':         item['link'],
+                    'source':       item['source']
+                })
+            else:
+                mongo_db[mongo_collection_name].insert_one({
+                    'title':        item['title'],
+                    'salary_from':  int(item['salary_from']),
+                    'salary_to':    int(item['salary_to']),
+                    'link':         item['link'],
+                    'source':       item['source']
+                })
 
             mongo_client.close()
 
