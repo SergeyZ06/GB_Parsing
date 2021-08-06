@@ -10,7 +10,7 @@ def filter_price(value):
         return int(result)
 
 
-# Процессор для обработки техтовых полей товара
+# Процессор для обработки текстовых полей товара
 def filter_text(value):
     if type(value) == str:
         return value.strip()
